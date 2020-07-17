@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">	
+	<title>Todo App</title>
+</head>
+<body>
+	<div style='margin-top:150px;' class="container">
+		<h3>Todo List</h3>
+		<hr>
+<form action='/add' method='post'>
+	<div class="form-group">
+    <label for="exampleInputEmail1">Todo Title</label>
+    <input type="text" name='title' class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter title">
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1">Todo Contents</label>
+    <textarea type="text" name='content' class="form-control" id="exampleInputPassword1" placeholder="Enter content"></textarea>
+  </div>
+  <br>
+  <button type="submit" class="btn btn-success">Add</button>
+</form><hr>
+{% if todos==[] %}
+	<div class='alert alert-warning' role='alert'>
+		You have not any todo!
+	</div>
+{% else %}
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">id</th>
+      <th scope="col">Todo Title</th>
+      <th scope="col">Todo Contents</th>
+      <th scope="col">Status</th>
+	  <th scope="col">Complete</th>
+	  <th scope="col">Delete</th>
+    </tr>
+  	</thead>
+  	<tbody>
+	{% for todo in todos %}
+	<tr>
+	  <th scope="row">{{todo.id}}</th>
+      <td><a href='/detail/{{todo.id}}'>{{todo.title}}</a></td>
+      <td>{{todo.content}}</td>
+	  {% if todo.complete==False %}
+	 	 <td>Not completed</td>
+	  {% else %}
+	 	 <td>Completed</td>
+	  {% endif %}
+       <td><a href='/complete/{{todo.id}}' class='btn btn-danger'>Complete</a></td>
+	  <td><a href='/delete/{{todo.id}}' class='btn btn-danger'>Delete</a></td>
+	</tr>
+	{% endfor %} 
+	</tbody>
+</table>
+{% endif %}
+</div>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js" integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.bundle.min.js" integrity="sha384-DBjhmceckmzwrnMMrjI7BvG2FmRuxQVaTfFYHgfnrdfqMhxKt445b7j3KBQLolRl" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.esm.min.js" integrity="sha384-sKZy8g2KJhBTFCD6cIg8d4EifJxaa8c/iYIERdeKorHWhAgZgQOfqOKMe3xBqye1" crossorigin="anonymous"></script>
+</body>
+</html>
